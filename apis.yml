@@ -6,9 +6,9 @@ position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Theme Parks
   - Entertainment
   - Real-Time
+  - Theme Parks
 created: '2025-02-24'
 modified: '2026-03-16'
 url: >-
@@ -23,9 +23,9 @@ apis:
     humanURL: https://themeparks.wiki/
     baseURL: https://api.themeparks.wiki/v1
     tags:
-      - Theme Parks
       - Entertainment
       - Real-Time
+      - Theme Parks
     properties:
       - type: Documentation
         url: https://api.themeparks.wiki/docs/v1/
