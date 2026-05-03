@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-schema/themeparks-wiki-live-data-response-schema.json",
+  "title": "LiveDataResponse",
+  "description": "Live data for an entity and all its children",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Entity UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Entity name"
+    },
+    "entityType": {
+      "type": "string",
+      "description": "Entity type"
+    },
+    "liveData": {
+      "type": "array",
+      "description": "Live data for child entities",
+      "items": {
+        "$ref": "#/components/schemas/LiveEntityData"
+      }
+    }
+  }
+}

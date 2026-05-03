@@ -1,0 +1,8 @@
+{
+  "id": "8135",
+  "name": "Example Name",
+  "entityType": "OPERATING",
+  "liveData": [
+    "example-value"
+  ]
+}

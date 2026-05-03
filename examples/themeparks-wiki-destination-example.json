@@ -1,0 +1,9 @@
+{
+  "id": "47f90d2c-e191-4e1a-a202-0da672270696",
+  "name": "Walt Disney World Resort",
+  "slug": "waltdisneyworldresort",
+  "externalId": "WaltDisneyWorldResort",
+  "parks": [
+    "example-value"
+  ]
+}

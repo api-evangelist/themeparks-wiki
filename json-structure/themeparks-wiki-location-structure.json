@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-structure/themeparks-wiki-location-structure.json",
+  "name": "Location",
+  "description": "Geographic coordinates",
+  "type": "object",
+  "properties": {
+    "latitude": {
+      "type": "double",
+      "description": "Latitude",
+      "example": 28.4177
+    },
+    "longitude": {
+      "type": "double",
+      "description": "Longitude",
+      "example": -81.5812
+    }
+  }
+}

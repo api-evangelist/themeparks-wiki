@@ -1,0 +1,155 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "themeparks": "https://api.themeparks.wiki/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Location": "themeparks:Location",
+    "Destination": "themeparks:Destination",
+    "LiveDataResponse": "themeparks:LiveDataResponse",
+    "LiveEntityData": "themeparks:LiveEntityData",
+    "ScheduleResponse": "themeparks:ScheduleResponse",
+    "ScheduleEntry": "themeparks:ScheduleEntry",
+    "Entity": "themeparks:Entity",
+    "Park": "themeparks:Park",
+    "ChildrenResponse": "themeparks:ChildrenResponse",
+    "QueueData": "themeparks:QueueData",
+    "DestinationsResponse": "themeparks:DestinationsResponse",
+    "latitude": {
+      "@id": "themeparks:latitude",
+      "@type": "xsd:decimal"
+    },
+    "longitude": {
+      "@id": "themeparks:longitude",
+      "@type": "xsd:decimal"
+    },
+    "id": {
+      "@id": "themeparks:id",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "slug": {
+      "@id": "themeparks:slug",
+      "@type": "xsd:string"
+    },
+    "externalId": {
+      "@id": "themeparks:externalId",
+      "@type": "xsd:string"
+    },
+    "parks": {
+      "@id": "themeparks:parks",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "entityType": {
+      "@id": "themeparks:entityType",
+      "@type": "xsd:string"
+    },
+    "liveData": {
+      "@id": "themeparks:liveData",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "entityId": {
+      "@id": "themeparks:entityId",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "themeparks:status",
+      "@type": "xsd:string"
+    },
+    "queue": {
+      "@id": "themeparks:queue",
+      "@type": "xsd:string"
+    },
+    "STANDBY": {
+      "@id": "themeparks:STANDBY",
+      "@type": "xsd:string"
+    },
+    "SINGLERider": {
+      "@id": "themeparks:SINGLE_RIDER",
+      "@type": "xsd:string"
+    },
+    "RETURNTime": {
+      "@id": "themeparks:RETURN_TIME",
+      "@type": "xsd:string"
+    },
+    "returnStart": {
+      "@id": "themeparks:returnStart",
+      "@type": "xsd:string"
+    },
+    "returnEnd": {
+      "@id": "themeparks:returnEnd",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "themeparks:state",
+      "@type": "xsd:string"
+    },
+    "lastUpdated": {
+      "@id": "themeparks:lastUpdated",
+      "@type": "xsd:string"
+    },
+    "showtimes": {
+      "@id": "themeparks:showtimes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "startTime": {
+      "@id": "themeparks:startTime",
+      "@type": "xsd:string"
+    },
+    "endTime": {
+      "@id": "themeparks:endTime",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "themeparks:type",
+      "@type": "xsd:string"
+    },
+    "schedule": {
+      "@id": "themeparks:schedule",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "date": {
+      "@id": "themeparks:date",
+      "@type": "xsd:string"
+    },
+    "openingTime": {
+      "@id": "themeparks:openingTime",
+      "@type": "xsd:string"
+    },
+    "closingTime": {
+      "@id": "themeparks:closingTime",
+      "@type": "xsd:string"
+    },
+    "specialHours": {
+      "@id": "themeparks:specialHours",
+      "@type": "xsd:boolean"
+    },
+    "parentId": {
+      "@id": "themeparks:parentId",
+      "@type": "xsd:string"
+    },
+    "location": {
+      "@id": "themeparks:location",
+      "@type": "xsd:string"
+    },
+    "children": {
+      "@id": "themeparks:children",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "waitTime": {
+      "@id": "themeparks:waitTime",
+      "@type": "xsd:integer"
+    },
+    "destinations": {
+      "@id": "themeparks:destinations",
+      "@container": "@set",
+      "@type": "xsd:string"
+    }
+  }
+}

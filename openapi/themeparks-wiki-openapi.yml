@@ -1,0 +1,560 @@
+openapi: 3.0.3
+info:
+  title: ThemeParks.wiki API
+  description: >-
+    An ever-growing database of real-time data for the world's best theme
+    parks. Access live wait times, ride operational status, park schedules,
+    and entity metadata for 75+ theme park destinations worldwide including
+    Disney, Universal, Cedar Fair, Six Flags, and Merlin Entertainment parks.
+    No authentication required.
+  version: "1.0.0"
+  contact:
+    url: https://themeparks.wiki/
+  x-generated-from: documentation
+servers:
+  - url: https://api.themeparks.wiki/v1
+    description: Production API server
+security: []
+tags:
+  - name: Destinations
+    description: Theme park resort destinations
+  - name: Entities
+    description: Park entities including rides, shows, restaurants, and parks
+paths:
+  /destinations:
+    get:
+      operationId: getDestinations
+      summary: ThemeParks.wiki Get All Destinations
+      description: >-
+        Get a list of all supported theme park destinations available on the
+        live API. Returns destination metadata including associated parks.
+      tags:
+        - Destinations
+      responses:
+        '200':
+          description: List of theme park destinations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DestinationsResponse'
+              examples:
+                GetDestinations200Example:
+                  summary: Default getDestinations 200 response
+                  x-microcks-default: true
+                  value:
+                    destinations:
+                      - id: "47f90d2c-e191-4e1a-a202-0da672270696"
+                        name: "Walt Disney World Resort"
+                        slug: "waltdisneyworldresort"
+                        externalId: "WaltDisneyWorldResort"
+                        parks:
+                          - id: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+                            name: "Magic Kingdom Park"
+                          - id: "1e7a4c8e-db38-4f4e-b0f1-9c28b2f1b4a6"
+                            name: "EPCOT"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /entity/{entityID}:
+    get:
+      operationId: getEntity
+      summary: ThemeParks.wiki Get Entity Details
+      description: >-
+        Get the entity document for a specific park, ride, show, restaurant,
+        or other entity. Returns metadata including name, type, coordinates,
+        and parent entity relationships.
+      tags:
+        - Entities
+      parameters:
+        - name: entityID
+          in: path
+          description: Unique entity UUID identifier
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+      responses:
+        '200':
+          description: Entity details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+              examples:
+                GetEntity200Example:
+                  summary: Default getEntity 200 response
+                  x-microcks-default: true
+                  value:
+                    id: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+                    name: "Magic Kingdom Park"
+                    entityType: PARK
+                    slug: "magickingdom"
+                    location:
+                      latitude: 28.4177
+                      longitude: -81.5812
+        '404':
+          description: Entity not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /entity/{entityID}/children:
+    get:
+      operationId: getEntityChildren
+      summary: ThemeParks.wiki Get Entity Children
+      description: >-
+        Get all child entities for a given entity. For a destination, returns
+        its parks. For a park, returns its attractions, shows, and restaurants.
+      tags:
+        - Entities
+      parameters:
+        - name: entityID
+          in: path
+          description: Unique entity UUID identifier
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+      responses:
+        '200':
+          description: List of child entities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChildrenResponse'
+              examples:
+                GetEntityChildren200Example:
+                  summary: Default getEntityChildren 200 response
+                  x-microcks-default: true
+                  value:
+                    id: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+                    name: "Magic Kingdom Park"
+                    entityType: PARK
+                    children:
+                      - id: "a8a5b7e4-1234-5678-abcd-ef0123456789"
+                        name: "Space Mountain"
+                        entityType: ATTRACTION
+                        externalId: "spacemountain"
+        '404':
+          description: Entity not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /entity/{entityID}/live:
+    get:
+      operationId: getEntityLiveData
+      summary: ThemeParks.wiki Get Live Entity Data
+      description: >-
+        Get live data for a specific entity and all its child entities. Returns
+        current wait times, queue lengths, operational status, return times for
+        virtual queues, and showtimes.
+      tags:
+        - Entities
+      parameters:
+        - name: entityID
+          in: path
+          description: Unique entity UUID identifier
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+      responses:
+        '200':
+          description: Live wait times and status data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveDataResponse'
+              examples:
+                GetEntityLiveData200Example:
+                  summary: Default getEntityLiveData 200 response
+                  x-microcks-default: true
+                  value:
+                    id: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+                    name: "Magic Kingdom Park"
+                    entityType: PARK
+                    liveData:
+                      - entityId: "a8a5b7e4-1234-5678-abcd-ef0123456789"
+                        name: "Space Mountain"
+                        entityType: ATTRACTION
+                        status: OPERATING
+                        queue:
+                          STANDBY:
+                            waitTime: 45
+                        lastUpdated: "2025-03-15T14:30:00Z"
+        '404':
+          description: Entity not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /entity/{entityID}/schedule:
+    get:
+      operationId: getEntitySchedule
+      summary: ThemeParks.wiki Get Entity Schedule
+      description: >-
+        Get the operating schedule for a specific entity (typically a park).
+        Returns upcoming park hours, special event hours, and holiday schedules.
+      tags:
+        - Entities
+      parameters:
+        - name: entityID
+          in: path
+          description: Unique entity UUID identifier
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+      responses:
+        '200':
+          description: Park operating schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleResponse'
+              examples:
+                GetEntitySchedule200Example:
+                  summary: Default getEntitySchedule 200 response
+                  x-microcks-default: true
+                  value:
+                    id: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+                    name: "Magic Kingdom Park"
+                    entityType: PARK
+                    schedule:
+                      - date: "2025-03-15"
+                        openingTime: "2025-03-15T09:00:00-05:00"
+                        closingTime: "2025-03-15T23:00:00-05:00"
+                        type: OPERATING
+        '404':
+          description: Entity not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /entity/{entityID}/schedule/{year}/{month}:
+    get:
+      operationId: getEntityScheduleByMonth
+      summary: ThemeParks.wiki Get Entity Schedule for Specific Month
+      description: >-
+        Get the operating schedule for a specific entity for a specific month
+        and year. Useful for trip planning and advance schedule lookups.
+      tags:
+        - Entities
+      parameters:
+        - name: entityID
+          in: path
+          description: Unique entity UUID identifier
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+        - name: year
+          in: path
+          description: Four-digit year
+          required: true
+          schema:
+            type: integer
+            example: 2025
+        - name: month
+          in: path
+          description: Month number (1-12)
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 12
+            example: 3
+      responses:
+        '200':
+          description: Park operating schedule for the specified month
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleResponse'
+              examples:
+                GetEntityScheduleByMonth200Example:
+                  summary: Default getEntityScheduleByMonth 200 response
+                  x-microcks-default: true
+                  value:
+                    id: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+                    name: "Magic Kingdom Park"
+                    schedule:
+                      - date: "2025-03-01"
+                        openingTime: "2025-03-01T09:00:00-05:00"
+                        closingTime: "2025-03-01T23:00:00-05:00"
+                        type: OPERATING
+        '404':
+          description: Entity not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+components:
+  schemas:
+    Park:
+      type: object
+      description: Theme park within a destination
+      properties:
+        id:
+          type: string
+          description: Unique park UUID
+          example: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+        name:
+          type: string
+          description: Park name
+          example: "Magic Kingdom Park"
+
+    Destination:
+      type: object
+      description: Theme park resort destination with multiple parks
+      properties:
+        id:
+          type: string
+          description: Unique destination UUID
+          example: "47f90d2c-e191-4e1a-a202-0da672270696"
+        name:
+          type: string
+          description: Destination name
+          example: "Walt Disney World Resort"
+        slug:
+          type: string
+          description: URL-friendly identifier
+          example: "waltdisneyworldresort"
+        externalId:
+          type: string
+          description: External reference ID
+          example: "WaltDisneyWorldResort"
+        parks:
+          type: array
+          description: Parks within this destination
+          items:
+            $ref: '#/components/schemas/Park'
+
+    DestinationsResponse:
+      type: object
+      description: Response containing list of all destinations
+      properties:
+        destinations:
+          type: array
+          description: Array of destination objects
+          items:
+            $ref: '#/components/schemas/Destination'
+
+    Location:
+      type: object
+      description: Geographic coordinates
+      properties:
+        latitude:
+          type: number
+          description: Latitude
+          example: 28.4177
+        longitude:
+          type: number
+          description: Longitude
+          example: -81.5812
+
+    Entity:
+      type: object
+      description: Theme park entity (park, attraction, show, restaurant, or destination)
+      properties:
+        id:
+          type: string
+          description: Unique entity UUID
+          example: "75ea578a-adc8-4116-a54d-dccb60765ef9"
+        name:
+          type: string
+          description: Entity name
+          example: "Space Mountain"
+        entityType:
+          type: string
+          description: Type of entity
+          enum:
+            - DESTINATION
+            - PARK
+            - ATTRACTION
+            - SHOW
+            - RESTAURANT
+          example: ATTRACTION
+        slug:
+          type: string
+          description: URL-friendly identifier
+          nullable: true
+        externalId:
+          type: string
+          description: External system reference ID
+          nullable: true
+        parentId:
+          type: string
+          description: Parent entity UUID
+          nullable: true
+        location:
+          $ref: '#/components/schemas/Location'
+
+    ChildrenResponse:
+      type: object
+      description: Entity with its children
+      properties:
+        id:
+          type: string
+          description: Parent entity UUID
+        name:
+          type: string
+          description: Parent entity name
+        entityType:
+          type: string
+          description: Parent entity type
+        children:
+          type: array
+          description: Child entities
+          items:
+            $ref: '#/components/schemas/Entity'
+
+    QueueData:
+      type: object
+      description: Queue wait time data for an attraction
+      properties:
+        waitTime:
+          type: integer
+          description: Current wait time in minutes
+          nullable: true
+          example: 45
+
+    LiveEntityData:
+      type: object
+      description: Live operational data for a single entity
+      properties:
+        entityId:
+          type: string
+          description: Entity UUID
+        name:
+          type: string
+          description: Entity name
+        entityType:
+          type: string
+          description: Entity type
+        status:
+          type: string
+          description: Current operational status
+          enum:
+            - OPERATING
+            - DOWN
+            - CLOSED
+            - REFURBISHMENT
+          example: OPERATING
+        queue:
+          type: object
+          description: Queue data by queue type
+          properties:
+            STANDBY:
+              $ref: '#/components/schemas/QueueData'
+            SINGLE_RIDER:
+              $ref: '#/components/schemas/QueueData'
+            RETURN_TIME:
+              type: object
+              description: Lightning Lane / virtual queue return time
+              properties:
+                returnStart:
+                  type: string
+                  description: Return window start time
+                returnEnd:
+                  type: string
+                  description: Return window end time
+                state:
+                  type: string
+                  description: Return time availability state
+        lastUpdated:
+          type: string
+          description: ISO 8601 timestamp of last data update
+          example: "2025-03-15T14:30:00Z"
+        showtimes:
+          type: array
+          description: Showtime data (for shows)
+          nullable: true
+          items:
+            type: object
+            properties:
+              startTime:
+                type: string
+                description: Show start time
+              endTime:
+                type: string
+                description: Show end time
+                nullable: true
+              type:
+                type: string
+                description: Show type
+
+    LiveDataResponse:
+      type: object
+      description: Live data for an entity and all its children
+      properties:
+        id:
+          type: string
+          description: Entity UUID
+        name:
+          type: string
+          description: Entity name
+        entityType:
+          type: string
+          description: Entity type
+        liveData:
+          type: array
+          description: Live data for child entities
+          items:
+            $ref: '#/components/schemas/LiveEntityData'
+
+    ScheduleEntry:
+      type: object
+      description: A single schedule entry for a park operating day
+      properties:
+        date:
+          type: string
+          description: Date in YYYY-MM-DD format
+          example: "2025-03-15"
+        openingTime:
+          type: string
+          description: Park opening time as ISO 8601 datetime
+          example: "2025-03-15T09:00:00-05:00"
+        closingTime:
+          type: string
+          description: Park closing time as ISO 8601 datetime
+          example: "2025-03-15T23:00:00-05:00"
+        type:
+          type: string
+          description: Schedule entry type
+          enum:
+            - OPERATING
+            - TICKETED_EVENT
+            - PRIVATE_EVENT
+            - EXTRA_HOURS
+          example: OPERATING
+        specialHours:
+          type: boolean
+          description: Whether this is special event hours
+          nullable: true
+
+    ScheduleResponse:
+      type: object
+      description: Schedule for an entity
+      properties:
+        id:
+          type: string
+          description: Entity UUID
+        name:
+          type: string
+          description: Entity name
+        entityType:
+          type: string
+          description: Entity type
+        schedule:
+          type: array
+          description: Array of schedule entries
+          items:
+            $ref: '#/components/schemas/ScheduleEntry'

@@ -1,0 +1,8 @@
+{
+  "id": "3115",
+  "name": "Example Name",
+  "entityType": "OPERATING",
+  "children": [
+    "example-value"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-schema/themeparks-wiki-park-schema.json",
+  "title": "Park",
+  "description": "Theme park within a destination",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique park UUID",
+      "example": "75ea578a-adc8-4116-a54d-dccb60765ef9"
+    },
+    "name": {
+      "type": "string",
+      "description": "Park name",
+      "example": "Magic Kingdom Park"
+    }
+  }
+}

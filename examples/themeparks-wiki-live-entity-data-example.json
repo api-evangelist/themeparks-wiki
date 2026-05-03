@@ -1,0 +1,21 @@
+{
+  "entityId": "1968",
+  "name": "Example Name",
+  "entityType": "OPERATING",
+  "status": "OPERATING",
+  "queue": {
+    "RETURN_TIME": {
+      "returnStart": "example-value",
+      "returnEnd": "example-value",
+      "state": "example-value"
+    }
+  },
+  "lastUpdated": "2025-03-15T14:30:00Z",
+  "showtimes": [
+    {
+      "startTime": "example-value",
+      "endTime": "example-value",
+      "type": "OPERATING"
+    }
+  ]
+}

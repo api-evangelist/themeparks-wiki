@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-schema/themeparks-wiki-location-schema.json",
+  "title": "Location",
+  "description": "Geographic coordinates",
+  "type": "object",
+  "properties": {
+    "latitude": {
+      "type": "number",
+      "description": "Latitude",
+      "example": 28.4177
+    },
+    "longitude": {
+      "type": "number",
+      "description": "Longitude",
+      "example": -81.5812
+    }
+  }
+}

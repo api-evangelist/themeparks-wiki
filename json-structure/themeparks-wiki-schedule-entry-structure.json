@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-structure/themeparks-wiki-schedule-entry-structure.json",
+  "name": "ScheduleEntry",
+  "description": "A single schedule entry for a park operating day",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "description": "Date in YYYY-MM-DD format",
+      "example": "2025-03-15"
+    },
+    "openingTime": {
+      "type": "string",
+      "description": "Park opening time as ISO 8601 datetime",
+      "example": "2025-03-15T09:00:00-05:00"
+    },
+    "closingTime": {
+      "type": "string",
+      "description": "Park closing time as ISO 8601 datetime",
+      "example": "2025-03-15T23:00:00-05:00"
+    },
+    "type": {
+      "type": "string",
+      "description": "Schedule entry type",
+      "enum": [
+        "OPERATING",
+        "TICKETED_EVENT",
+        "PRIVATE_EVENT",
+        "EXTRA_HOURS"
+      ],
+      "example": "OPERATING"
+    },
+    "specialHours": {
+      "type": "boolean",
+      "description": "Whether this is special event hours",
+      "nullable": true
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "6161",
+  "name": "Example Name",
+  "entityType": "OPERATING",
+  "schedule": [
+    "example-value"
+  ]
+}

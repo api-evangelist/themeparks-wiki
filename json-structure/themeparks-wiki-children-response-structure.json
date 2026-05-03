@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-structure/themeparks-wiki-children-response-structure.json",
+  "name": "ChildrenResponse",
+  "description": "Entity with its children",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Parent entity UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Parent entity name"
+    },
+    "entityType": {
+      "type": "string",
+      "description": "Parent entity type"
+    },
+    "children": {
+      "type": "array",
+      "description": "Child entities",
+      "items": {
+        "$ref": "#/components/schemas/Entity"
+      }
+    }
+  }
+}

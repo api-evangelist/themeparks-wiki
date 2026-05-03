@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-schema/themeparks-wiki-destinations-response-schema.json",
+  "title": "DestinationsResponse",
+  "description": "Response containing list of all destinations",
+  "type": "object",
+  "properties": {
+    "destinations": {
+      "type": "array",
+      "description": "Array of destination objects",
+      "items": {
+        "$ref": "#/components/schemas/Destination"
+      }
+    }
+  }
+}

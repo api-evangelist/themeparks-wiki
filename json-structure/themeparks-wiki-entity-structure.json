@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-structure/themeparks-wiki-entity-structure.json",
+  "name": "Entity",
+  "description": "Theme park entity (park, attraction, show, restaurant, or destination)",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique entity UUID",
+      "example": "75ea578a-adc8-4116-a54d-dccb60765ef9"
+    },
+    "name": {
+      "type": "string",
+      "description": "Entity name",
+      "example": "Space Mountain"
+    },
+    "entityType": {
+      "type": "string",
+      "description": "Type of entity",
+      "enum": [
+        "DESTINATION",
+        "PARK",
+        "ATTRACTION",
+        "SHOW",
+        "RESTAURANT"
+      ],
+      "example": "ATTRACTION"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly identifier",
+      "nullable": true
+    },
+    "externalId": {
+      "type": "string",
+      "description": "External system reference ID",
+      "nullable": true
+    },
+    "parentId": {
+      "type": "string",
+      "description": "Parent entity UUID",
+      "nullable": true
+    },
+    "location": {
+      "$ref": "#/components/schemas/Location"
+    }
+  }
+}

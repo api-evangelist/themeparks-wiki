@@ -1,0 +1,147 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "ThemeParks.wiki"
+  description: "Vocabulary covering theme park resources, real-time data operations, and personas for ThemeParks.wiki API"
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+operational:
+  apis:
+    - namespace: themeparks
+      version: "1.0.0"
+      baseUrl: https://api.themeparks.wiki/v1
+      status: active
+
+  resources:
+    - name: destinations
+      api: themeparks
+      actions: [list]
+      description: "Theme park resort destinations with associated parks"
+    - name: entities
+      api: themeparks
+      actions: [get, list-children]
+      description: "Park entities including parks, attractions, shows, and restaurants"
+    - name: live-data
+      api: themeparks
+      actions: [get]
+      description: "Real-time wait times, operational status, and showtime data"
+    - name: schedules
+      api: themeparks
+      actions: [get, get-by-month]
+      description: "Park operating hours and special event schedules"
+
+  actions:
+    - name: list
+      methods: [GET]
+      pattern: read
+    - name: get
+      methods: [GET]
+      pattern: read
+    - name: list-children
+      methods: [GET]
+      pattern: read
+    - name: get-by-month
+      methods: [GET]
+      pattern: read
+
+  schemas:
+    core:
+      - name: Destination
+        description: "Theme park resort with multiple parks"
+      - name: Entity
+        description: "Park entity (park, attraction, show, restaurant)"
+      - name: LiveEntityData
+        description: "Real-time operational data for a single entity"
+      - name: ScheduleEntry
+        description: "Single day operating hours entry"
+      - name: QueueData
+        description: "Wait time data for an attraction queue"
+      - name: Location
+        description: "Geographic coordinates (latitude/longitude)"
+
+  parameters:
+    identifiers:
+      - name: entityID
+        description: "Entity UUID identifier"
+    date:
+      - name: year
+        description: "Four-digit year for schedule queries"
+      - name: month
+        description: "Month number 1-12 for schedule queries"
+
+  enums:
+    entity_types:
+      - DESTINATION
+      - PARK
+      - ATTRACTION
+      - SHOW
+      - RESTAURANT
+    operational_status:
+      - OPERATING
+      - DOWN
+      - CLOSED
+      - REFURBISHMENT
+    schedule_types:
+      - OPERATING
+      - TICKETED_EVENT
+      - PRIVATE_EVENT
+      - EXTRA_HOURS
+
+  authentication: []
+
+capability:
+  workflows:
+    - name: theme-park-planning
+      file: capabilities/theme-park-planning.yaml
+      description: "Trip planning and real-time park monitoring workflow"
+      apisUsed: [themeparks]
+      toolCount: 7
+      personas: [Park Visitor, Travel Planner, AI Agent]
+
+  personas:
+    - id: park-visitor
+      name: Park Visitor
+      description: "Theme park guest checking live wait times and park hours in real time"
+      workflows: [theme-park-planning]
+    - id: travel-planner
+      name: Travel Planner
+      description: "Person planning a future theme park visit and researching schedules"
+      workflows: [theme-park-planning]
+    - id: ai-agent
+      name: AI Agent
+      description: "LLM helping users plan theme park visits and monitor live conditions"
+      workflows: [theme-park-planning]
+
+  domains:
+    - name: Live Park Data
+      description: "Real-time wait times and operational status for park attractions"
+    - name: Trip Planning
+      description: "Advance planning using park schedules and destination information"
+
+  namespaces:
+    - id: themeparks
+      type: consumed
+      baseUri: https://api.themeparks.wiki/v1
+    - id: theme-park-planning-api
+      type: rest-exposed
+      port: 8080
+    - id: theme-park-planning-mcp
+      type: mcp-exposed
+      port: 9090
+
+  binds: []
+
+crossReference:
+  - resource: destinations
+    operations: [list-destinations]
+    workflows: [theme-park-planning]
+    personas: [Park Visitor, Travel Planner, AI Agent]
+  - resource: live-data
+    operations: [get-live-wait-times]
+    workflows: [theme-park-planning]
+    personas: [Park Visitor, AI Agent]
+  - resource: schedules
+    operations: [get-park-schedule, get-monthly-schedule]
+    workflows: [theme-park-planning]
+    personas: [Travel Planner, AI Agent]

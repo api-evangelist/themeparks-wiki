@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-structure/themeparks-wiki-schedule-response-structure.json",
+  "name": "ScheduleResponse",
+  "description": "Schedule for an entity",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Entity UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Entity name"
+    },
+    "entityType": {
+      "type": "string",
+      "description": "Entity type"
+    },
+    "schedule": {
+      "type": "array",
+      "description": "Array of schedule entries",
+      "items": {
+        "$ref": "#/components/schemas/ScheduleEntry"
+      }
+    }
+  }
+}

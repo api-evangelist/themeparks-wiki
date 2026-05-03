@@ -1,0 +1,8 @@
+{
+  "id": "75ea578a-adc8-4116-a54d-dccb60765ef9",
+  "name": "Space Mountain",
+  "entityType": "ATTRACTION",
+  "slug": "example-slug",
+  "externalId": "2427",
+  "parentId": "4255"
+}

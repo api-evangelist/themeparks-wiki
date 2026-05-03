@@ -1,0 +1,216 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "ThemeParks.wiki API"
+  description: "Real-time theme park data API providing live wait times, operational status, park schedules, and entity metadata for 75+ destinations worldwide."
+  tags:
+    - Theme Parks
+    - Entertainment
+    - Real-Time
+    - Wait Times
+    - Travel
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds: []
+
+capability:
+  consumes:
+    - type: http
+      namespace: themeparks
+      baseUri: https://api.themeparks.wiki/v1
+      description: "Real-time theme park data API"
+      resources:
+        - name: destinations
+          path: /destinations
+          description: "List all theme park destinations"
+          operations:
+            - name: get-destinations
+              method: GET
+              description: "Get all supported theme park destinations"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: entity
+          path: /entity/{entityID}
+          description: "Get entity details"
+          operations:
+            - name: get-entity
+              method: GET
+              description: "Get entity document for a park, attraction, show, or restaurant"
+              inputParameters:
+                - name: entityID
+                  in: path
+                  type: string
+                  required: true
+                  description: "Entity UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: entity-children
+          path: /entity/{entityID}/children
+          description: "Get child entities"
+          operations:
+            - name: get-entity-children
+              method: GET
+              description: "Get all children for a given entity"
+              inputParameters:
+                - name: entityID
+                  in: path
+                  type: string
+                  required: true
+                  description: "Entity UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: entity-live
+          path: /entity/{entityID}/live
+          description: "Get live wait times and status"
+          operations:
+            - name: get-entity-live-data
+              method: GET
+              description: "Get live wait times and operational status for an entity and its children"
+              inputParameters:
+                - name: entityID
+                  in: path
+                  type: string
+                  required: true
+                  description: "Entity UUID (typically a park ID)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: entity-schedule
+          path: /entity/{entityID}/schedule
+          description: "Get park operating schedule"
+          operations:
+            - name: get-entity-schedule
+              method: GET
+              description: "Get operating schedule for a park entity"
+              inputParameters:
+                - name: entityID
+                  in: path
+                  type: string
+                  required: true
+                  description: "Entity UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: entity-schedule-by-month
+          path: /entity/{entityID}/schedule/{year}/{month}
+          description: "Get schedule for specific month"
+          operations:
+            - name: get-entity-schedule-by-month
+              method: GET
+              description: "Get park schedule for a specific month and year"
+              inputParameters:
+                - name: entityID
+                  in: path
+                  type: string
+                  required: true
+                  description: "Entity UUID"
+                - name: year
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Four-digit year"
+                - name: month
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Month number (1-12)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: themeparks-rest
+      resources:
+        - path: /v1/destinations
+          name: destinations
+          operations:
+            - method: GET
+              name: list-destinations
+              description: "List all theme park destinations"
+              call: "themeparks.get-destinations"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/parks/{id}/live
+          name: park-live
+          operations:
+            - method: GET
+              name: get-live-data
+              description: "Get live wait times for a park"
+              call: "themeparks.get-entity-live-data"
+              with:
+                entityID: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: themeparks-mcp
+      transport: http
+      tools:
+        - name: get-destinations
+          description: "Get all supported theme park destinations worldwide"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "themeparks.get-destinations"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-entity
+          description: "Get details for a specific park entity by UUID"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "themeparks.get-entity"
+          with:
+            entityID: "tools.entityID"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-live-wait-times
+          description: "Get current live wait times for all attractions in a park"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "themeparks.get-entity-live-data"
+          with:
+            entityID: "tools.entityID"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-park-schedule
+          description: "Get operating hours schedule for a park"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "themeparks.get-entity-schedule"
+          with:
+            entityID: "tools.entityID"
+          outputParameters:
+            - type: object
+              mapping: "$."

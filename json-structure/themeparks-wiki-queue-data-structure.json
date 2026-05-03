@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themeparks-wiki/refs/heads/main/json-structure/themeparks-wiki-queue-data-structure.json",
+  "name": "QueueData",
+  "description": "Queue wait time data for an attraction",
+  "type": "object",
+  "properties": {
+    "waitTime": {
+      "type": "int32",
+      "description": "Current wait time in minutes",
+      "nullable": true,
+      "example": 45
+    }
+  }
+}
