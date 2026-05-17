@@ -44,7 +44,7 @@ apis:
       - type: JSONStructure
         url: json-structure/themeparks-wiki-destination-structure.json
         title: Destination Structure
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/themeparks-wiki-context.jsonld
         title: ThemeParks.wiki JSON-LD Context
 common:
@@ -52,7 +52,7 @@ common:
     url: https://themeparks.wiki/
   - type: Documentation
     url: https://api.themeparks.wiki/docs/v1/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/ThemeParks
   - type: SpectralRules
     url: rules/themeparks-wiki-spectral-rules.yml
