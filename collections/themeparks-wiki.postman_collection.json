@@ -1,0 +1,803 @@
+{
+  "item": [
+    {
+      "id": "ad23a18c-e411-49cd-96e5-9fa6f6133df6",
+      "name": "Destinations",
+      "description": {
+        "content": "Theme park resort destinations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bfa16552-a1c8-4764-87a0-7733516b33e3",
+          "name": "ThemeParks.wiki Get All Destinations",
+          "request": {
+            "name": "ThemeParks.wiki Get All Destinations",
+            "description": {
+              "content": "Get a list of all supported theme park destinations available on the live API. Returns destination metadata including associated parks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "destinations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f1bc39ec-6882-403e-ba88-59a2169271bb",
+              "name": "List of theme park destinations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "destinations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"destinations\": [\n    {\n      \"id\": \"47f90d2c-e191-4e1a-a202-0da672270696\",\n      \"name\": \"Walt Disney World Resort\",\n      \"slug\": \"waltdisneyworldresort\",\n      \"externalId\": \"WaltDisneyWorldResort\",\n      \"parks\": [\n        {\n          \"id\": \"75ea578a-adc8-4116-a54d-dccb60765ef9\",\n          \"name\": \"Magic Kingdom Park\"\n        },\n        {\n          \"id\": \"1e7a4c8e-db38-4f4e-b0f1-9c28b2f1b4a6\",\n          \"name\": \"EPCOT\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "401fe036-0cdc-4b97-8d55-0a08302b7a87",
+      "name": "Entities",
+      "description": {
+        "content": "Park entities including rides, shows, restaurants, and parks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2e1fae2a-7474-4ae9-ad90-08b9dfd3b10a",
+          "name": "ThemeParks.wiki Get Entity Details",
+          "request": {
+            "name": "ThemeParks.wiki Get Entity Details",
+            "description": {
+              "content": "Get the entity document for a specific park, ride, show, restaurant, or other entity. Returns metadata including name, type, coordinates, and parent entity relationships.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entity",
+                ":entityID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "entityID",
+                  "description": "(Required) Unique entity UUID identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6c6661b-d878-4cb5-80c2-5e1aef798fda",
+              "name": "Entity details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"75ea578a-adc8-4116-a54d-dccb60765ef9\",\n  \"name\": \"Magic Kingdom Park\",\n  \"entityType\": \"PARK\",\n  \"slug\": \"magickingdom\",\n  \"location\": {\n    \"latitude\": 28.4177,\n    \"longitude\": -81.5812\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "248074b5-fcf9-4d84-a7db-76b09d830e51",
+              "name": "Entity not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a89a2957-4f16-4b1d-a058-90d5c0eddbf8",
+          "name": "ThemeParks.wiki Get Entity Children",
+          "request": {
+            "name": "ThemeParks.wiki Get Entity Children",
+            "description": {
+              "content": "Get all child entities for a given entity. For a destination, returns its parks. For a park, returns its attractions, shows, and restaurants.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entity",
+                ":entityID",
+                "children"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "entityID",
+                  "description": "(Required) Unique entity UUID identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03a593ac-b816-42e8-9ce4-9f57885615f0",
+              "name": "List of child entities",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID",
+                    "children"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"75ea578a-adc8-4116-a54d-dccb60765ef9\",\n  \"name\": \"Magic Kingdom Park\",\n  \"entityType\": \"PARK\",\n  \"children\": [\n    {\n      \"id\": \"a8a5b7e4-1234-5678-abcd-ef0123456789\",\n      \"name\": \"Space Mountain\",\n      \"entityType\": \"ATTRACTION\",\n      \"externalId\": \"spacemountain\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d923e51b-1b28-494d-a25d-5dbef5f958cb",
+              "name": "Entity not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID",
+                    "children"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c307b2ea-6ce3-4931-8899-b2ddedd60b43",
+          "name": "ThemeParks.wiki Get Live Entity Data",
+          "request": {
+            "name": "ThemeParks.wiki Get Live Entity Data",
+            "description": {
+              "content": "Get live data for a specific entity and all its child entities. Returns current wait times, queue lengths, operational status, return times for virtual queues, and showtimes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entity",
+                ":entityID",
+                "live"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "entityID",
+                  "description": "(Required) Unique entity UUID identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cedff54f-93ee-41be-911a-141bbbe9e488",
+              "name": "Live wait times and status data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID",
+                    "live"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"75ea578a-adc8-4116-a54d-dccb60765ef9\",\n  \"name\": \"Magic Kingdom Park\",\n  \"entityType\": \"PARK\",\n  \"liveData\": [\n    {\n      \"entityId\": \"a8a5b7e4-1234-5678-abcd-ef0123456789\",\n      \"name\": \"Space Mountain\",\n      \"entityType\": \"ATTRACTION\",\n      \"status\": \"OPERATING\",\n      \"queue\": {\n        \"STANDBY\": {\n          \"waitTime\": 45\n        }\n      },\n      \"lastUpdated\": \"2025-03-15T14:30:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6959fe4-dd92-4777-81b2-b0a81c4f57b1",
+              "name": "Entity not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID",
+                    "live"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3f45bdb-5b3e-46d0-b043-216136203a9e",
+          "name": "ThemeParks.wiki Get Entity Schedule",
+          "request": {
+            "name": "ThemeParks.wiki Get Entity Schedule",
+            "description": {
+              "content": "Get the operating schedule for a specific entity (typically a park). Returns upcoming park hours, special event hours, and holiday schedules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entity",
+                ":entityID",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "entityID",
+                  "description": "(Required) Unique entity UUID identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3942ee03-b1c2-4f0d-968d-2c6942679292",
+              "name": "Park operating schedule",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"75ea578a-adc8-4116-a54d-dccb60765ef9\",\n  \"name\": \"Magic Kingdom Park\",\n  \"entityType\": \"PARK\",\n  \"schedule\": [\n    {\n      \"date\": \"2025-03-15\",\n      \"openingTime\": \"2025-03-15T09:00:00-05:00\",\n      \"closingTime\": \"2025-03-15T23:00:00-05:00\",\n      \"type\": \"OPERATING\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "903d8e08-b00f-4618-ba68-764ee4e8f182",
+              "name": "Entity not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "899041dd-af65-4c97-ab02-fc7978cd3324",
+          "name": "ThemeParks.wiki Get Entity Schedule for Specific Month",
+          "request": {
+            "name": "ThemeParks.wiki Get Entity Schedule for Specific Month",
+            "description": {
+              "content": "Get the operating schedule for a specific entity for a specific month and year. Useful for trip planning and advance schedule lookups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entity",
+                ":entityID",
+                "schedule",
+                ":year",
+                ":month"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "entityID",
+                  "description": "(Required) Unique entity UUID identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "year",
+                  "description": "(Required) Four-digit year"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "month",
+                  "description": "(Required) Month number (1-12)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66403955-e10f-4944-8c93-5e6ebbde7869",
+              "name": "Park operating schedule for the specified month",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID",
+                    "schedule",
+                    ":year",
+                    ":month"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "year",
+                      "description": "(Required) Four-digit year"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "month",
+                      "description": "(Required) Month number (1-12)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"75ea578a-adc8-4116-a54d-dccb60765ef9\",\n  \"name\": \"Magic Kingdom Park\",\n  \"schedule\": [\n    {\n      \"date\": \"2025-03-01\",\n      \"openingTime\": \"2025-03-01T09:00:00-05:00\",\n      \"closingTime\": \"2025-03-01T23:00:00-05:00\",\n      \"type\": \"OPERATING\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d787b195-985e-4ef3-9932-9e0dea6febbe",
+              "name": "Entity not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entity",
+                    ":entityID",
+                    "schedule",
+                    ":year",
+                    ":month"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityID",
+                      "description": "(Required) Unique entity UUID identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "year",
+                      "description": "(Required) Four-digit year"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "month",
+                      "description": "(Required) Month number (1-12)"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.themeparks.wiki/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "600ea94c-2c22-4cf6-9f1a-936c94db00cb",
+    "name": "ThemeParks.wiki API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "An ever-growing database of real-time data for the world's best theme parks. Access live wait times, ride operational status, park schedules, and entity metadata for 75+ theme park destinations worldwide including Disney, Universal, Cedar Fair, Six Flags, and Merlin Entertainment parks. No authentication required.",
+      "type": "text/plain"
+    }
+  }
+}

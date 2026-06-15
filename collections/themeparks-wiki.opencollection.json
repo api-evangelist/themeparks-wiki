@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThemeParks.wiki API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Destinations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ThemeParks.wiki Get All Destinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.themeparks.wiki/v1/destinations"
+          },
+          "docs": "Get a list of all supported theme park destinations available on the live API. Returns destination metadata including associated parks."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ThemeParks.wiki Get Entity Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.themeparks.wiki/v1/entity/:entityID",
+            "params": [
+              {
+                "name": "entityID",
+                "value": "",
+                "type": "path",
+                "description": "Unique entity UUID identifier"
+              }
+            ]
+          },
+          "docs": "Get the entity document for a specific park, ride, show, restaurant, or other entity. Returns metadata including name, type, coordinates, and parent entity relationships."
+        },
+        {
+          "info": {
+            "name": "ThemeParks.wiki Get Entity Children",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.themeparks.wiki/v1/entity/:entityID/children",
+            "params": [
+              {
+                "name": "entityID",
+                "value": "",
+                "type": "path",
+                "description": "Unique entity UUID identifier"
+              }
+            ]
+          },
+          "docs": "Get all child entities for a given entity. For a destination, returns its parks. For a park, returns its attractions, shows, and restaurants."
+        },
+        {
+          "info": {
+            "name": "ThemeParks.wiki Get Live Entity Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.themeparks.wiki/v1/entity/:entityID/live",
+            "params": [
+              {
+                "name": "entityID",
+                "value": "",
+                "type": "path",
+                "description": "Unique entity UUID identifier"
+              }
+            ]
+          },
+          "docs": "Get live data for a specific entity and all its child entities. Returns current wait times, queue lengths, operational status, return times for virtual queues, and showtimes."
+        },
+        {
+          "info": {
+            "name": "ThemeParks.wiki Get Entity Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.themeparks.wiki/v1/entity/:entityID/schedule",
+            "params": [
+              {
+                "name": "entityID",
+                "value": "",
+                "type": "path",
+                "description": "Unique entity UUID identifier"
+              }
+            ]
+          },
+          "docs": "Get the operating schedule for a specific entity (typically a park). Returns upcoming park hours, special event hours, and holiday schedules."
+        },
+        {
+          "info": {
+            "name": "ThemeParks.wiki Get Entity Schedule for Specific Month",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.themeparks.wiki/v1/entity/:entityID/schedule/:year/:month",
+            "params": [
+              {
+                "name": "entityID",
+                "value": "",
+                "type": "path",
+                "description": "Unique entity UUID identifier"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "path",
+                "description": "Four-digit year"
+              },
+              {
+                "name": "month",
+                "value": "",
+                "type": "path",
+                "description": "Month number (1-12)"
+              }
+            ]
+          },
+          "docs": "Get the operating schedule for a specific entity for a specific month and year. Useful for trip planning and advance schedule lookups."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
