@@ -95,7 +95,7 @@ common:
         description: Smart home integrations for displaying live park data on dashboards
       - name: Kodi
         description: Media center plugin integrations for theme park information
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://themeparks.wiki/llms.txt
 maintainers:
   - FN: Kin Lane
