@@ -47,6 +47,8 @@ apis:
         url: json-ld/themeparks-wiki-context.jsonld
         title: ThemeParks.wiki JSON-LD Context
 common:
+  - type: DomainSecurity
+    url: security/themeparks-wiki-domain-security.yml
   - type: Website
     url: https://themeparks.wiki/
   - type: Documentation
