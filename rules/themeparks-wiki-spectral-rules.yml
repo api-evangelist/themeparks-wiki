@@ -1,6 +1,21 @@
+# themeparks-wiki — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 1/1 servers on themeparks.wiki
+#   - path-params-casing: camel @ 71% (n=7)
+#   - operationid-casing: camel @ 100% (n=6)
+#   - schema-names-casing: pascal @ 100% (n=11)
+#   - schema-properties-casing: snake @ 64% (n=42)
+#   - operation-documents-404: 83% adherence
+#   - merge: kept 22 existing, added 5 measured, upgraded 0
+#   - added: servers-expected-domain, path-params-casing, operationid-casing, schema-names-casing, schema-properties-casing
+extends:
+  - spectral:oas
 rules:
-
-  # INFO / METADATA
   info-title-required:
     description: Info object must have a title
     severity: error
@@ -8,7 +23,6 @@ rules:
     then:
       field: title
       function: truthy
-
   info-description-required:
     description: Info object must have a description
     severity: warn
@@ -16,7 +30,6 @@ rules:
     then:
       field: description
       function: truthy
-
   info-version-required:
     description: API version must be defined
     severity: error
@@ -24,8 +37,6 @@ rules:
     then:
       field: version
       function: truthy
-
-  # OPENAPI VERSION
   openapi-version-3:
     description: OpenAPI version should be 3.x
     severity: warn
@@ -34,9 +45,7 @@ rules:
       field: openapi
       function: pattern
       functionOptions:
-        match: "^3\\."
-
-  # SERVERS
+        match: ^3\.
   servers-defined:
     description: Servers array must be defined
     severity: error
@@ -44,7 +53,6 @@ rules:
     then:
       field: servers
       function: truthy
-
   servers-https:
     description: Server URLs must use HTTPS
     severity: error
@@ -52,9 +60,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^https://"
-
-  # PATHS
+        match: ^https://
   paths-kebab-case:
     description: Path segments must use kebab-case
     severity: warn
@@ -62,8 +68,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^(/[a-z0-9]+(-[a-z0-9]+)*(/{[a-zA-Z]+})?)*$"
-
+        match: ^(/[a-z0-9]+(-[a-z0-9]+)*(/{[a-zA-Z]+})?)*$
   paths-no-trailing-slash:
     description: Paths must not have trailing slashes
     severity: warn
@@ -71,9 +76,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: "/$"
-
-  # OPERATIONS
+        notMatch: /$
   operation-summary-required:
     description: Operations must have a summary
     severity: error
@@ -81,7 +84,6 @@ rules:
     then:
       field: summary
       function: truthy
-
   operation-description-required:
     description: Operations must have a description
     severity: warn
@@ -89,7 +91,6 @@ rules:
     then:
       field: description
       function: truthy
-
   operation-operationId-required:
     description: Operations must have an operationId
     severity: error
@@ -97,7 +98,6 @@ rules:
     then:
       field: operationId
       function: truthy
-
   operation-tags-required:
     description: Operations must have at least one tag
     severity: warn
@@ -105,7 +105,6 @@ rules:
     then:
       field: tags
       function: truthy
-
   operation-summary-provider-prefix:
     description: Operation summaries should start with 'ThemeParks.wiki'
     severity: info
@@ -113,9 +112,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^ThemeParks.wiki "
-
-  # PARAMETERS
+        match: '^ThemeParks.wiki '
   parameter-entity-id-uuid:
     description: Entity ID path parameters should use UUID format
     severity: info
@@ -125,8 +122,7 @@ rules:
       function: enumeration
       functionOptions:
         values:
-          - uuid
-
+        - uuid
   parameter-description-required:
     description: Parameters must have descriptions
     severity: warn
@@ -134,8 +130,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  # RESPONSES
   response-success-required:
     description: Operations must have at least one success response
     severity: error
@@ -146,15 +140,13 @@ rules:
         schema:
           type: object
           minProperties: 1
-
   response-404-for-entity-paths:
     description: Entity endpoints should document 404 not found response
     severity: warn
     given: $.paths[/entity/*][get].responses
     then:
-      field: "404"
+      field: '404'
       function: defined
-
   response-description-required:
     description: Response objects must have a description
     severity: warn
@@ -162,8 +154,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  # SCHEMAS
   schema-type-defined:
     description: Schema objects should have a type
     severity: warn
@@ -171,8 +161,6 @@ rules:
     then:
       field: type
       function: truthy
-
-  # SECURITY
   no-auth-required:
     description: ThemeParks.wiki API requires no authentication
     severity: info
@@ -180,8 +168,6 @@ rules:
     then:
       field: security
       function: falsy
-
-  # HTTP METHODS
   get-no-request-body:
     description: GET operations must not have a request body
     severity: error
@@ -189,8 +175,6 @@ rules:
     then:
       field: requestBody
       function: falsy
-
-  # GENERAL QUALITY
   no-empty-descriptions:
     description: Descriptions must not be empty
     severity: warn
@@ -198,4 +182,46 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: ".+"
+        match: .+
+  servers-expected-domain:
+    description: Server URLs should be on the themeparks.wiki domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: themeparks\.wiki
+  path-params-casing:
+    description: Path parameters should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*].parameters[?(@.in=='path')].name
+    then:
+      function: pattern
+      functionOptions:
+        match: ^[a-z][A-Za-z0-9]*$
+  operationid-casing:
+    description: Operation IDs should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  schema-properties-casing:
+    description: Schema properties should be snake_case (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: snake
