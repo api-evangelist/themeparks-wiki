@@ -1,0 +1,16 @@
+{
+  "provider": "themeparks-wiki",
+  "sources": [
+    "themeparks-wiki-destinations-api-openapi.yml",
+    "themeparks-wiki-entities-api-openapi.yml"
+  ],
+  "outputs": [
+    "themeparks-wiki-destinations-api-openapi.yml",
+    "themeparks-wiki-entities-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
