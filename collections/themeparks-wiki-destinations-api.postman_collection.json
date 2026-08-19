@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "b214ac8b-ad0c-441a-a54b-edaa5a85fec5",
+      "name": "Destinations",
+      "description": {
+        "content": "Theme park resort destinations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4c509f36-7b9e-4e41-b88c-fc77a42996c2",
+          "name": "ThemeParks.wiki Get All Destinations",
+          "request": {
+            "name": "ThemeParks.wiki Get All Destinations",
+            "description": {
+              "content": "Get a list of all supported theme park destinations available on the live API. Returns destination metadata including associated parks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "destinations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "baf76b07-6b1a-4697-bf3a-5953762f9e49",
+              "name": "List of theme park destinations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "destinations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"destinations\": [\n    {\n      \"id\": \"47f90d2c-e191-4e1a-a202-0da672270696\",\n      \"name\": \"Walt Disney World Resort\",\n      \"slug\": \"waltdisneyworldresort\",\n      \"externalId\": \"WaltDisneyWorldResort\",\n      \"parks\": [\n        {\n          \"id\": \"75ea578a-adc8-4116-a54d-dccb60765ef9\",\n          \"name\": \"Magic Kingdom Park\"\n        },\n        {\n          \"id\": \"1e7a4c8e-db38-4f4e-b0f1-9c28b2f1b4a6\",\n          \"name\": \"EPCOT\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.themeparks.wiki/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0a417446-f96f-4420-8302-54eb4f5f2013",
+    "name": "ThemeParks.wiki Destinations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "An ever-growing database of real-time data for the world's best theme parks. Access live wait times, ride operational status, park schedules, and entity metadata for 75+ theme park destinations worldwide including Disney, Universal, Cedar Fair, Six Flags, and Merlin Entertainment parks. No authentication required.",
+      "type": "text/plain"
+    }
+  }
+}
