@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: ThemeParks.wiki Destinations API
   description: An ever-growing database of real-time data for the world's best theme parks. Access live wait times, ride operational status, park schedules, and entity metadata for 75+ theme park destinations worldwide including Disney, Universal, Cedar Fair, Six Flags, and Merlin Entertainment parks. No authentication required.
@@ -48,6 +48,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DestinationsResponse:
+      type: object
+      description: Response containing list of all destinations
+      properties:
+        destinations:
+          type: array
+          description: Array of destination objects
+          items:
+            $ref: '#/components/schemas/Destination'
     Park:
       type: object
       description: Theme park within a destination
@@ -85,12 +94,3 @@ components:
           description: Parks within this destination
           items:
             $ref: '#/components/schemas/Park'
-    DestinationsResponse:
-      type: object
-      description: Response containing list of all destinations
-      properties:
-        destinations:
-          type: array
-          description: Array of destination objects
-          items:
-            $ref: '#/components/schemas/Destination'

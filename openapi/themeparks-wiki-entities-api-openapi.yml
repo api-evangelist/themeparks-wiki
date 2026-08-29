@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: ThemeParks.wiki Destinations Entities API
   description: An ever-growing database of real-time data for the world's best theme parks. Access live wait times, ride operational status, park schedules, and entity metadata for 75+ theme park destinations worldwide including Disney, Universal, Cedar Fair, Six Flags, and Merlin Entertainment parks. No authentication required.
@@ -239,18 +239,121 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Location:
+    ScheduleEntry:
       type: object
-      description: Geographic coordinates
+      description: A single schedule entry for a park operating day
       properties:
-        latitude:
-          type: number
-          description: Latitude
-          example: 28.4177
-        longitude:
-          type: number
-          description: Longitude
-          example: -81.5812
+        date:
+          type: string
+          description: Date in YYYY-MM-DD format
+          example: '2025-03-15'
+        openingTime:
+          type: string
+          description: Park opening time as ISO 8601 datetime
+          example: '2025-03-15T09:00:00-05:00'
+        closingTime:
+          type: string
+          description: Park closing time as ISO 8601 datetime
+          example: '2025-03-15T23:00:00-05:00'
+        type:
+          type: string
+          description: Schedule entry type
+          enum:
+          - OPERATING
+          - TICKETED_EVENT
+          - PRIVATE_EVENT
+          - EXTRA_HOURS
+          example: OPERATING
+        specialHours:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this is special event hours
+    QueueData:
+      type: object
+      description: Queue wait time data for an attraction
+      properties:
+        waitTime:
+          type:
+          - integer
+          - 'null'
+          description: Current wait time in minutes
+          example: 45
+    Entity:
+      type: object
+      description: Theme park entity (park, attraction, show, restaurant, or destination)
+      properties:
+        id:
+          type: string
+          description: Unique entity UUID
+          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
+        name:
+          type: string
+          description: Entity name
+          example: Space Mountain
+        entityType:
+          type: string
+          description: Type of entity
+          enum:
+          - DESTINATION
+          - PARK
+          - ATTRACTION
+          - SHOW
+          - RESTAURANT
+          example: ATTRACTION
+        slug:
+          type:
+          - string
+          - 'null'
+          description: URL-friendly identifier
+        externalId:
+          type:
+          - string
+          - 'null'
+          description: External system reference ID
+        parentId:
+          type:
+          - string
+          - 'null'
+          description: Parent entity UUID
+        location:
+          $ref: '#/components/schemas/Location'
+    ChildrenResponse:
+      type: object
+      description: Entity with its children
+      properties:
+        id:
+          type: string
+          description: Parent entity UUID
+        name:
+          type: string
+          description: Parent entity name
+        entityType:
+          type: string
+          description: Parent entity type
+        children:
+          type: array
+          description: Child entities
+          items:
+            $ref: '#/components/schemas/Entity'
+    LiveDataResponse:
+      type: object
+      description: Live data for an entity and all its children
+      properties:
+        id:
+          type: string
+          description: Entity UUID
+        name:
+          type: string
+          description: Entity name
+        entityType:
+          type: string
+          description: Entity type
+        liveData:
+          type: array
+          description: Live data for child entities
+          items:
+            $ref: '#/components/schemas/LiveEntityData'
     LiveEntityData:
       type: object
       description: Live operational data for a single entity
@@ -299,9 +402,10 @@ components:
           description: ISO 8601 timestamp of last data update
           example: '2025-03-15T14:30:00Z'
         showtimes:
-          type: array
+          type:
+          - array
+          - 'null'
           description: Showtime data (for shows)
-          nullable: true
           items:
             type: object
             properties:
@@ -309,95 +413,13 @@ components:
                 type: string
                 description: Show start time
               endTime:
-                type: string
+                type:
+                - string
+                - 'null'
                 description: Show end time
-                nullable: true
               type:
                 type: string
                 description: Show type
-    ChildrenResponse:
-      type: object
-      description: Entity with its children
-      properties:
-        id:
-          type: string
-          description: Parent entity UUID
-        name:
-          type: string
-          description: Parent entity name
-        entityType:
-          type: string
-          description: Parent entity type
-        children:
-          type: array
-          description: Child entities
-          items:
-            $ref: '#/components/schemas/Entity'
-    ScheduleEntry:
-      type: object
-      description: A single schedule entry for a park operating day
-      properties:
-        date:
-          type: string
-          description: Date in YYYY-MM-DD format
-          example: '2025-03-15'
-        openingTime:
-          type: string
-          description: Park opening time as ISO 8601 datetime
-          example: '2025-03-15T09:00:00-05:00'
-        closingTime:
-          type: string
-          description: Park closing time as ISO 8601 datetime
-          example: '2025-03-15T23:00:00-05:00'
-        type:
-          type: string
-          description: Schedule entry type
-          enum:
-          - OPERATING
-          - TICKETED_EVENT
-          - PRIVATE_EVENT
-          - EXTRA_HOURS
-          example: OPERATING
-        specialHours:
-          type: boolean
-          description: Whether this is special event hours
-          nullable: true
-    Entity:
-      type: object
-      description: Theme park entity (park, attraction, show, restaurant, or destination)
-      properties:
-        id:
-          type: string
-          description: Unique entity UUID
-          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
-        name:
-          type: string
-          description: Entity name
-          example: Space Mountain
-        entityType:
-          type: string
-          description: Type of entity
-          enum:
-          - DESTINATION
-          - PARK
-          - ATTRACTION
-          - SHOW
-          - RESTAURANT
-          example: ATTRACTION
-        slug:
-          type: string
-          description: URL-friendly identifier
-          nullable: true
-        externalId:
-          type: string
-          description: External system reference ID
-          nullable: true
-        parentId:
-          type: string
-          description: Parent entity UUID
-          nullable: true
-        location:
-          $ref: '#/components/schemas/Location'
     ScheduleResponse:
       type: object
       description: Schedule for an entity
@@ -416,30 +438,15 @@ components:
           description: Array of schedule entries
           items:
             $ref: '#/components/schemas/ScheduleEntry'
-    QueueData:
+    Location:
       type: object
-      description: Queue wait time data for an attraction
+      description: Geographic coordinates
       properties:
-        waitTime:
-          type: integer
-          description: Current wait time in minutes
-          nullable: true
-          example: 45
-    LiveDataResponse:
-      type: object
-      description: Live data for an entity and all its children
-      properties:
-        id:
-          type: string
-          description: Entity UUID
-        name:
-          type: string
-          description: Entity name
-        entityType:
-          type: string
-          description: Entity type
-        liveData:
-          type: array
-          description: Live data for child entities
-          items:
-            $ref: '#/components/schemas/LiveEntityData'
+        latitude:
+          type: number
+          description: Latitude
+          example: 28.4177
+        longitude:
+          type: number
+          description: Longitude
+          example: -81.5812
