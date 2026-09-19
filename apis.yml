@@ -47,6 +47,8 @@ apis:
   humanURL: https://themeparks.wiki/
   baseURL: https://api.themeparks.wiki/v1
   tags:
+  - Destination
+  tags_raw:
   - Destinations
   properties:
   - type: OpenAPI
