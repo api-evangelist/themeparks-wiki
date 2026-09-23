@@ -1,8 +1,7 @@
 {
   "provider": "themeparks-wiki",
   "sources": [
-    "themeparks-wiki-destinations-api-openapi.yml",
-    "themeparks-wiki-entities-api-openapi.yml"
+    "_ae-authored/themeparks-wiki-openapi.yml"
   ],
   "outputs": [
     "themeparks-wiki-destinations-api-openapi.yml",
@@ -12,9 +11,12 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "themeparks-wiki-destinations-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "themeparks-wiki-entities-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "themeparks-wiki-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "themeparks-wiki-destinations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "themeparks-wiki-entities-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

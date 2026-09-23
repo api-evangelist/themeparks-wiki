@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: ThemeParks.wiki Destinations Entities API
+  title: ThemeParks.wiki Entities API
   description: An ever-growing database of real-time data for the world's best theme parks. Access live wait times, ride operational status, park schedules, and entity metadata for 75+ theme park destinations worldwide including Disney, Universal, Cedar Fair, Six Flags, and Merlin Entertainment parks. No authentication required.
   version: 1.0.0
   contact:
@@ -239,103 +239,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ScheduleEntry:
-      type: object
-      description: A single schedule entry for a park operating day
-      properties:
-        date:
-          type: string
-          description: Date in YYYY-MM-DD format
-          example: '2025-03-15'
-        openingTime:
-          type: string
-          description: Park opening time as ISO 8601 datetime
-          example: '2025-03-15T09:00:00-05:00'
-        closingTime:
-          type: string
-          description: Park closing time as ISO 8601 datetime
-          example: '2025-03-15T23:00:00-05:00'
-        type:
-          type: string
-          description: Schedule entry type
-          enum:
-          - OPERATING
-          - TICKETED_EVENT
-          - PRIVATE_EVENT
-          - EXTRA_HOURS
-          example: OPERATING
-        specialHours:
-          type:
-          - boolean
-          - 'null'
-          description: Whether this is special event hours
-    QueueData:
-      type: object
-      description: Queue wait time data for an attraction
-      properties:
-        waitTime:
-          type:
-          - integer
-          - 'null'
-          description: Current wait time in minutes
-          example: 45
-    Entity:
-      type: object
-      description: Theme park entity (park, attraction, show, restaurant, or destination)
-      properties:
-        id:
-          type: string
-          description: Unique entity UUID
-          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
-        name:
-          type: string
-          description: Entity name
-          example: Space Mountain
-        entityType:
-          type: string
-          description: Type of entity
-          enum:
-          - DESTINATION
-          - PARK
-          - ATTRACTION
-          - SHOW
-          - RESTAURANT
-          example: ATTRACTION
-        slug:
-          type:
-          - string
-          - 'null'
-          description: URL-friendly identifier
-        externalId:
-          type:
-          - string
-          - 'null'
-          description: External system reference ID
-        parentId:
-          type:
-          - string
-          - 'null'
-          description: Parent entity UUID
-        location:
-          $ref: '#/components/schemas/Location'
-    ChildrenResponse:
-      type: object
-      description: Entity with its children
-      properties:
-        id:
-          type: string
-          description: Parent entity UUID
-        name:
-          type: string
-          description: Parent entity name
-        entityType:
-          type: string
-          description: Parent entity type
-        children:
-          type: array
-          description: Child entities
-          items:
-            $ref: '#/components/schemas/Entity'
     LiveDataResponse:
       type: object
       description: Live data for an entity and all its children
@@ -354,6 +257,24 @@ components:
           description: Live data for child entities
           items:
             $ref: '#/components/schemas/LiveEntityData'
+    ChildrenResponse:
+      type: object
+      description: Entity with its children
+      properties:
+        id:
+          type: string
+          description: Parent entity UUID
+        name:
+          type: string
+          description: Parent entity name
+        entityType:
+          type: string
+          description: Parent entity type
+        children:
+          type: array
+          description: Child entities
+          items:
+            $ref: '#/components/schemas/Entity'
     LiveEntityData:
       type: object
       description: Live operational data for a single entity
@@ -450,3 +371,82 @@ components:
           type: number
           description: Longitude
           example: -81.5812
+    Entity:
+      type: object
+      description: Theme park entity (park, attraction, show, restaurant, or destination)
+      properties:
+        id:
+          type: string
+          description: Unique entity UUID
+          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
+        name:
+          type: string
+          description: Entity name
+          example: Space Mountain
+        entityType:
+          type: string
+          description: Type of entity
+          enum:
+          - DESTINATION
+          - PARK
+          - ATTRACTION
+          - SHOW
+          - RESTAURANT
+          example: ATTRACTION
+        slug:
+          type:
+          - string
+          - 'null'
+          description: URL-friendly identifier
+        externalId:
+          type:
+          - string
+          - 'null'
+          description: External system reference ID
+        parentId:
+          type:
+          - string
+          - 'null'
+          description: Parent entity UUID
+        location:
+          $ref: '#/components/schemas/Location'
+    QueueData:
+      type: object
+      description: Queue wait time data for an attraction
+      properties:
+        waitTime:
+          type:
+          - integer
+          - 'null'
+          description: Current wait time in minutes
+          example: 45
+    ScheduleEntry:
+      type: object
+      description: A single schedule entry for a park operating day
+      properties:
+        date:
+          type: string
+          description: Date in YYYY-MM-DD format
+          example: '2025-03-15'
+        openingTime:
+          type: string
+          description: Park opening time as ISO 8601 datetime
+          example: '2025-03-15T09:00:00-05:00'
+        closingTime:
+          type: string
+          description: Park closing time as ISO 8601 datetime
+          example: '2025-03-15T23:00:00-05:00'
+        type:
+          type: string
+          description: Schedule entry type
+          enum:
+          - OPERATING
+          - TICKETED_EVENT
+          - PRIVATE_EVENT
+          - EXTRA_HOURS
+          example: OPERATING
+        specialHours:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this is special event hours

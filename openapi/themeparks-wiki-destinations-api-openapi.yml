@@ -48,27 +48,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    DestinationsResponse:
-      type: object
-      description: Response containing list of all destinations
-      properties:
-        destinations:
-          type: array
-          description: Array of destination objects
-          items:
-            $ref: '#/components/schemas/Destination'
-    Park:
-      type: object
-      description: Theme park within a destination
-      properties:
-        id:
-          type: string
-          description: Unique park UUID
-          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
-        name:
-          type: string
-          description: Park name
-          example: Magic Kingdom Park
     Destination:
       type: object
       description: Theme park resort destination with multiple parks
@@ -94,3 +73,24 @@ components:
           description: Parks within this destination
           items:
             $ref: '#/components/schemas/Park'
+    DestinationsResponse:
+      type: object
+      description: Response containing list of all destinations
+      properties:
+        destinations:
+          type: array
+          description: Array of destination objects
+          items:
+            $ref: '#/components/schemas/Destination'
+    Park:
+      type: object
+      description: Theme park within a destination
+      properties:
+        id:
+          type: string
+          description: Unique park UUID
+          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
+        name:
+          type: string
+          description: Park name
+          example: Magic Kingdom Park
