@@ -239,9 +239,9 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    LiveDataResponse:
+    ScheduleResponse:
       type: object
-      description: Live data for an entity and all its children
+      description: Schedule for an entity
       properties:
         id:
           type: string
@@ -252,11 +252,21 @@ components:
         entityType:
           type: string
           description: Entity type
-        liveData:
+        schedule:
           type: array
-          description: Live data for child entities
+          description: Array of schedule entries
           items:
-            $ref: '#/components/schemas/LiveEntityData'
+            $ref: '#/components/schemas/ScheduleEntry'
+    QueueData:
+      type: object
+      description: Queue wait time data for an attraction
+      properties:
+        waitTime:
+          type:
+          - integer
+          - 'null'
+          description: Current wait time in minutes
+          example: 45
     ChildrenResponse:
       type: object
       description: Entity with its children
@@ -275,6 +285,87 @@ components:
           description: Child entities
           items:
             $ref: '#/components/schemas/Entity'
+    Location:
+      type: object
+      description: Geographic coordinates
+      properties:
+        latitude:
+          type: number
+          description: Latitude
+          example: 28.4177
+        longitude:
+          type: number
+          description: Longitude
+          example: -81.5812
+    ScheduleEntry:
+      type: object
+      description: A single schedule entry for a park operating day
+      properties:
+        date:
+          type: string
+          description: Date in YYYY-MM-DD format
+          example: '2025-03-15'
+        openingTime:
+          type: string
+          description: Park opening time as ISO 8601 datetime
+          example: '2025-03-15T09:00:00-05:00'
+        closingTime:
+          type: string
+          description: Park closing time as ISO 8601 datetime
+          example: '2025-03-15T23:00:00-05:00'
+        type:
+          type: string
+          description: Schedule entry type
+          enum:
+          - OPERATING
+          - TICKETED_EVENT
+          - PRIVATE_EVENT
+          - EXTRA_HOURS
+          example: OPERATING
+        specialHours:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this is special event hours
+    Entity:
+      type: object
+      description: Theme park entity (park, attraction, show, restaurant, or destination)
+      properties:
+        id:
+          type: string
+          description: Unique entity UUID
+          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
+        name:
+          type: string
+          description: Entity name
+          example: Space Mountain
+        entityType:
+          type: string
+          description: Type of entity
+          enum:
+          - DESTINATION
+          - PARK
+          - ATTRACTION
+          - SHOW
+          - RESTAURANT
+          example: ATTRACTION
+        slug:
+          type:
+          - string
+          - 'null'
+          description: URL-friendly identifier
+        externalId:
+          type:
+          - string
+          - 'null'
+          description: External system reference ID
+        parentId:
+          type:
+          - string
+          - 'null'
+          description: Parent entity UUID
+        location:
+          $ref: '#/components/schemas/Location'
     LiveEntityData:
       type: object
       description: Live operational data for a single entity
@@ -341,9 +432,9 @@ components:
               type:
                 type: string
                 description: Show type
-    ScheduleResponse:
+    LiveDataResponse:
       type: object
-      description: Schedule for an entity
+      description: Live data for an entity and all its children
       properties:
         id:
           type: string
@@ -354,99 +445,8 @@ components:
         entityType:
           type: string
           description: Entity type
-        schedule:
+        liveData:
           type: array
-          description: Array of schedule entries
+          description: Live data for child entities
           items:
-            $ref: '#/components/schemas/ScheduleEntry'
-    Location:
-      type: object
-      description: Geographic coordinates
-      properties:
-        latitude:
-          type: number
-          description: Latitude
-          example: 28.4177
-        longitude:
-          type: number
-          description: Longitude
-          example: -81.5812
-    Entity:
-      type: object
-      description: Theme park entity (park, attraction, show, restaurant, or destination)
-      properties:
-        id:
-          type: string
-          description: Unique entity UUID
-          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
-        name:
-          type: string
-          description: Entity name
-          example: Space Mountain
-        entityType:
-          type: string
-          description: Type of entity
-          enum:
-          - DESTINATION
-          - PARK
-          - ATTRACTION
-          - SHOW
-          - RESTAURANT
-          example: ATTRACTION
-        slug:
-          type:
-          - string
-          - 'null'
-          description: URL-friendly identifier
-        externalId:
-          type:
-          - string
-          - 'null'
-          description: External system reference ID
-        parentId:
-          type:
-          - string
-          - 'null'
-          description: Parent entity UUID
-        location:
-          $ref: '#/components/schemas/Location'
-    QueueData:
-      type: object
-      description: Queue wait time data for an attraction
-      properties:
-        waitTime:
-          type:
-          - integer
-          - 'null'
-          description: Current wait time in minutes
-          example: 45
-    ScheduleEntry:
-      type: object
-      description: A single schedule entry for a park operating day
-      properties:
-        date:
-          type: string
-          description: Date in YYYY-MM-DD format
-          example: '2025-03-15'
-        openingTime:
-          type: string
-          description: Park opening time as ISO 8601 datetime
-          example: '2025-03-15T09:00:00-05:00'
-        closingTime:
-          type: string
-          description: Park closing time as ISO 8601 datetime
-          example: '2025-03-15T23:00:00-05:00'
-        type:
-          type: string
-          description: Schedule entry type
-          enum:
-          - OPERATING
-          - TICKETED_EVENT
-          - PRIVATE_EVENT
-          - EXTRA_HOURS
-          example: OPERATING
-        specialHours:
-          type:
-          - boolean
-          - 'null'
-          description: Whether this is special event hours
+            $ref: '#/components/schemas/LiveEntityData'
