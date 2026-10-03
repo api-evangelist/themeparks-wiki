@@ -239,9 +239,9 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ScheduleResponse:
+    LiveDataResponse:
       type: object
-      description: Schedule for an entity
+      description: Live data for an entity and all its children
       properties:
         id:
           type: string
@@ -252,11 +252,11 @@ components:
         entityType:
           type: string
           description: Entity type
-        schedule:
+        liveData:
           type: array
-          description: Array of schedule entries
+          description: Live data for child entities
           items:
-            $ref: '#/components/schemas/ScheduleEntry'
+            $ref: '#/components/schemas/LiveEntityData'
     QueueData:
       type: object
       description: Queue wait time data for an attraction
@@ -267,6 +267,18 @@ components:
           - 'null'
           description: Current wait time in minutes
           example: 45
+    Location:
+      type: object
+      description: Geographic coordinates
+      properties:
+        latitude:
+          type: number
+          description: Latitude
+          example: 28.4177
+        longitude:
+          type: number
+          description: Longitude
+          example: -81.5812
     ChildrenResponse:
       type: object
       description: Entity with its children
@@ -285,18 +297,6 @@ components:
           description: Child entities
           items:
             $ref: '#/components/schemas/Entity'
-    Location:
-      type: object
-      description: Geographic coordinates
-      properties:
-        latitude:
-          type: number
-          description: Latitude
-          example: 28.4177
-        longitude:
-          type: number
-          description: Longitude
-          example: -81.5812
     ScheduleEntry:
       type: object
       description: A single schedule entry for a park operating day
@@ -366,6 +366,24 @@ components:
           description: Parent entity UUID
         location:
           $ref: '#/components/schemas/Location'
+    ScheduleResponse:
+      type: object
+      description: Schedule for an entity
+      properties:
+        id:
+          type: string
+          description: Entity UUID
+        name:
+          type: string
+          description: Entity name
+        entityType:
+          type: string
+          description: Entity type
+        schedule:
+          type: array
+          description: Array of schedule entries
+          items:
+            $ref: '#/components/schemas/ScheduleEntry'
     LiveEntityData:
       type: object
       description: Live operational data for a single entity
@@ -432,21 +450,3 @@ components:
               type:
                 type: string
                 description: Show type
-    LiveDataResponse:
-      type: object
-      description: Live data for an entity and all its children
-      properties:
-        id:
-          type: string
-          description: Entity UUID
-        name:
-          type: string
-          description: Entity name
-        entityType:
-          type: string
-          description: Entity type
-        liveData:
-          type: array
-          description: Live data for child entities
-          items:
-            $ref: '#/components/schemas/LiveEntityData'
