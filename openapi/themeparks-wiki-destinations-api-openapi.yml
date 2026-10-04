@@ -48,15 +48,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    DestinationsResponse:
-      type: object
-      description: Response containing list of all destinations
-      properties:
-        destinations:
-          type: array
-          description: Array of destination objects
-          items:
-            $ref: '#/components/schemas/Destination'
     Park:
       type: object
       description: Theme park within a destination
@@ -94,3 +85,12 @@ components:
           description: Parks within this destination
           items:
             $ref: '#/components/schemas/Park'
+    DestinationsResponse:
+      type: object
+      description: Response containing list of all destinations
+      properties:
+        destinations:
+          type: array
+          description: Array of destination objects
+          items:
+            $ref: '#/components/schemas/Destination'

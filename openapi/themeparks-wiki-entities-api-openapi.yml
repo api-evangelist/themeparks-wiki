@@ -239,64 +239,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    LiveDataResponse:
-      type: object
-      description: Live data for an entity and all its children
-      properties:
-        id:
-          type: string
-          description: Entity UUID
-        name:
-          type: string
-          description: Entity name
-        entityType:
-          type: string
-          description: Entity type
-        liveData:
-          type: array
-          description: Live data for child entities
-          items:
-            $ref: '#/components/schemas/LiveEntityData'
-    QueueData:
-      type: object
-      description: Queue wait time data for an attraction
-      properties:
-        waitTime:
-          type:
-          - integer
-          - 'null'
-          description: Current wait time in minutes
-          example: 45
-    Location:
-      type: object
-      description: Geographic coordinates
-      properties:
-        latitude:
-          type: number
-          description: Latitude
-          example: 28.4177
-        longitude:
-          type: number
-          description: Longitude
-          example: -81.5812
-    ChildrenResponse:
-      type: object
-      description: Entity with its children
-      properties:
-        id:
-          type: string
-          description: Parent entity UUID
-        name:
-          type: string
-          description: Parent entity name
-        entityType:
-          type: string
-          description: Parent entity type
-        children:
-          type: array
-          description: Child entities
-          items:
-            $ref: '#/components/schemas/Entity'
     ScheduleEntry:
       type: object
       description: A single schedule entry for a park operating day
@@ -327,45 +269,6 @@ components:
           - boolean
           - 'null'
           description: Whether this is special event hours
-    Entity:
-      type: object
-      description: Theme park entity (park, attraction, show, restaurant, or destination)
-      properties:
-        id:
-          type: string
-          description: Unique entity UUID
-          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
-        name:
-          type: string
-          description: Entity name
-          example: Space Mountain
-        entityType:
-          type: string
-          description: Type of entity
-          enum:
-          - DESTINATION
-          - PARK
-          - ATTRACTION
-          - SHOW
-          - RESTAURANT
-          example: ATTRACTION
-        slug:
-          type:
-          - string
-          - 'null'
-          description: URL-friendly identifier
-        externalId:
-          type:
-          - string
-          - 'null'
-          description: External system reference ID
-        parentId:
-          type:
-          - string
-          - 'null'
-          description: Parent entity UUID
-        location:
-          $ref: '#/components/schemas/Location'
     ScheduleResponse:
       type: object
       description: Schedule for an entity
@@ -450,3 +353,100 @@ components:
               type:
                 type: string
                 description: Show type
+    Entity:
+      type: object
+      description: Theme park entity (park, attraction, show, restaurant, or destination)
+      properties:
+        id:
+          type: string
+          description: Unique entity UUID
+          example: 75ea578a-adc8-4116-a54d-dccb60765ef9
+        name:
+          type: string
+          description: Entity name
+          example: Space Mountain
+        entityType:
+          type: string
+          description: Type of entity
+          enum:
+          - DESTINATION
+          - PARK
+          - ATTRACTION
+          - SHOW
+          - RESTAURANT
+          example: ATTRACTION
+        slug:
+          type:
+          - string
+          - 'null'
+          description: URL-friendly identifier
+        externalId:
+          type:
+          - string
+          - 'null'
+          description: External system reference ID
+        parentId:
+          type:
+          - string
+          - 'null'
+          description: Parent entity UUID
+        location:
+          $ref: '#/components/schemas/Location'
+    LiveDataResponse:
+      type: object
+      description: Live data for an entity and all its children
+      properties:
+        id:
+          type: string
+          description: Entity UUID
+        name:
+          type: string
+          description: Entity name
+        entityType:
+          type: string
+          description: Entity type
+        liveData:
+          type: array
+          description: Live data for child entities
+          items:
+            $ref: '#/components/schemas/LiveEntityData'
+    Location:
+      type: object
+      description: Geographic coordinates
+      properties:
+        latitude:
+          type: number
+          description: Latitude
+          example: 28.4177
+        longitude:
+          type: number
+          description: Longitude
+          example: -81.5812
+    QueueData:
+      type: object
+      description: Queue wait time data for an attraction
+      properties:
+        waitTime:
+          type:
+          - integer
+          - 'null'
+          description: Current wait time in minutes
+          example: 45
+    ChildrenResponse:
+      type: object
+      description: Entity with its children
+      properties:
+        id:
+          type: string
+          description: Parent entity UUID
+        name:
+          type: string
+          description: Parent entity name
+        entityType:
+          type: string
+          description: Parent entity type
+        children:
+          type: array
+          description: Child entities
+          items:
+            $ref: '#/components/schemas/Entity'
