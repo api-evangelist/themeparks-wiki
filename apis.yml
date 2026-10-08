@@ -80,6 +80,12 @@ apis:
   - type: JSONLD
     url: json-ld/themeparks-wiki-context.jsonld
 common:
+  - type: Plans
+    url: plans/themeparks-wiki-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/themeparks-wiki-rate-limits.yml
+  - type: FinOps
+    url: finops/themeparks-wiki-finops.yml
   - url: https://www.themeparks.wiki/engineering
     type: Blog
   - url: https://www.themeparks.wiki/engineering/rss.xml
