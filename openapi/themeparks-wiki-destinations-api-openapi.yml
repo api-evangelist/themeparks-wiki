@@ -60,6 +60,15 @@ components:
           type: string
           description: Park name
           example: Magic Kingdom Park
+    DestinationsResponse:
+      type: object
+      description: Response containing list of all destinations
+      properties:
+        destinations:
+          type: array
+          description: Array of destination objects
+          items:
+            $ref: '#/components/schemas/Destination'
     Destination:
       type: object
       description: Theme park resort destination with multiple parks
@@ -85,12 +94,3 @@ components:
           description: Parks within this destination
           items:
             $ref: '#/components/schemas/Park'
-    DestinationsResponse:
-      type: object
-      description: Response containing list of all destinations
-      properties:
-        destinations:
-          type: array
-          description: Array of destination objects
-          items:
-            $ref: '#/components/schemas/Destination'
